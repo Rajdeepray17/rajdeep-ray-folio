@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Portfolio Design System for Rajdeep Ray */
+@layer base {
+  :root {
+    /* Dark Portfolio Theme */
+    --background: 220 30% 7%;
+    --foreground: 210 20% 95%;
+    
+    --card: 220 25% 10%;
+    --card-foreground: 210 20% 95%;
+    
+    --popover: 220 25% 10%;
+    --popover-foreground: 210 20% 95%;
+    
+    --primary: 191 100% 60%;
+    --primary-foreground: 220 30% 7%;
+    
+    --secondary: 220 20% 15%;
+    --secondary-foreground: 210 20% 95%;
+    
+    --muted: 220 15% 20%;
+    --muted-foreground: 210 10% 65%;
+    
+    --accent: 191 100% 60%;
+    --accent-foreground: 220 30% 7%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 95%;
+    
+    --border: 220 20% 20%;
+    --input: 220 20% 15%;
+    --ring: 191 100% 60%;
+    
+    --radius: 0.75rem;
+    
+    /* Portfolio Specific Colors */
+    --portfolio-navy: 220 30% 7%;
+    --portfolio-cyan: 191 100% 60%;
+    --portfolio-cyan-glow: 191 100% 70%;
+    --portfolio-dark-card: 220 25% 10%;
+    --portfolio-darker: 220 30% 5%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(220, 30%, 7%) 0%, hsl(220, 25%, 10%) 50%, hsl(220, 20%, 15%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220, 25%, 10%) 0%, hsl(220, 20%, 12%) 100%);
+    --gradient-accent: linear-gradient(90deg, hsl(191, 100%, 60%) 0%, hsl(191, 100%, 70%) 100%);
+    --gradient-glow: radial-gradient(circle at center, hsl(191, 100%, 60%, 0.3) 0%, transparent 70%);
+    
+    /* Shadows */
+    --shadow-card: 0 10px 40px hsl(220, 30%, 5%, 0.5);
+    --shadow-glow: 0 0 30px hsl(191, 100%, 60%, 0.3);
+    --shadow-hover: 0 20px 60px hsl(220, 30%, 5%, 0.7);
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-inter;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins font-semibold;
+  }
+}
+
+@layer components {
+  .portfolio-gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+  
+  .portfolio-card {
+    @apply bg-card border border-border/50 rounded-lg shadow-[var(--shadow-card)] transition-all duration-300;
+  }
+  
+  .portfolio-card:hover {
+    @apply shadow-[var(--shadow-hover)] -translate-y-2;
+  }
+  
+  .portfolio-glow {
+    position: relative;
+  }
+  
+  .portfolio-glow::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: var(--gradient-accent);
+    border-radius: inherit;
+    opacity: 0;
+    transition: var(--transition-smooth);
+    z-index: -1;
+    filter: blur(8px);
+  }
+  
+  .portfolio-glow:hover::before {
+    opacity: 0.7;
+  }
+  
+  .typing-cursor::after {
+    content: '|';
+    @apply text-primary animate-pulse ml-1;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
