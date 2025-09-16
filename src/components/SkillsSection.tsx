@@ -1,33 +1,36 @@
 import { useEffect, useRef, useState } from "react";
 import { Progress } from "@/components/ui/progress";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface Skill {
   name: string;
   level: number;
   category: 'soft' | 'hard';
+  description: string;
 }
 
 const SkillsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [animatedLevels, setAnimatedLevels] = useState<{ [key: string]: number }>({});
+  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   const skills: Skill[] = [
     // Soft Skills
-    { name: "Communication", level: 90, category: 'soft' },
-    { name: "Leadership", level: 85, category: 'soft' },
-    { name: "Teamwork", level: 95, category: 'soft' },
-    { name: "Creativity", level: 88, category: 'soft' },
-    { name: "Problem Solving", level: 92, category: 'soft' },
-    { name: "Adaptability", level: 87, category: 'soft' },
+    { name: "Communication", level: 90, category: 'soft', description: "Excellent verbal and written communication skills. Experienced in presenting complex technical concepts to diverse audiences, facilitating team meetings, and maintaining clear documentation." },
+    { name: "Leadership", level: 85, category: 'soft', description: "Natural leader with experience guiding development teams, mentoring junior developers, and driving project success through collaborative leadership and strategic decision-making." },
+    { name: "Teamwork", level: 95, category: 'soft', description: "Strong collaborative skills with experience working in cross-functional teams. Adept at fostering positive team dynamics, resolving conflicts, and contributing to collective success." },
+    { name: "Creativity", level: 88, category: 'soft', description: "Innovative problem-solver with a creative approach to development challenges. Skilled at thinking outside the box to create unique user experiences and technical solutions." },
+    { name: "Problem Solving", level: 92, category: 'soft', description: "Analytical thinker with exceptional debugging and troubleshooting abilities. Experienced in breaking down complex problems into manageable solutions and optimizing system performance." },
+    { name: "Adaptability", level: 87, category: 'soft', description: "Quick to adapt to new technologies, methodologies, and changing project requirements. Thrives in dynamic environments and embraces continuous learning opportunities." },
     
     // Hard Skills
-    { name: "Web Development", level: 90, category: 'hard' },
-    { name: "C++", level: 85, category: 'hard' },
-    { name: "Python", level: 88, category: 'hard' },
-    { name: "Git/GitHub", level: 85, category: 'hard' },
-    { name: "SQL", level: 80, category: 'hard' },
-    { name: "MERN Stack", level: 85, category: 'hard' },
+    { name: "Web Development", level: 90, category: 'hard', description: "Proficient in modern web development with expertise in React, HTML5, CSS3, and JavaScript ES6+. Experience building responsive, accessible, and performant web applications." },
+    { name: "C++", level: 85, category: 'hard', description: "Strong foundation in C++ programming with experience in object-oriented programming, data structures, algorithms, and system-level programming for competitive coding and projects." },
+    { name: "Python", level: 88, category: 'hard', description: "Versatile Python developer with experience in web development (Django/Flask), data analysis, automation scripting, and machine learning applications using popular libraries." },
+    { name: "Git/GitHub", level: 90, category: 'hard', description: "Advanced version control skills with Git and GitHub. Experienced in collaborative development workflows, code review processes, branching strategies, and CI/CD integration." },
+    { name: "SQL", level: 80, category: 'hard', description: "Solid database management skills with experience in SQL query optimization, database design, and working with various database systems including MySQL, PostgreSQL, and MongoDB." },
+    { name: "MERN Stack", level: 85, category: 'hard', description: "Full-stack development expertise using MongoDB, Express.js, React, and Node.js. Experienced in building scalable web applications from database design to user interface." },
   ];
 
   useEffect(() => {
@@ -62,10 +65,11 @@ const SkillsSection = () => {
 
   const SkillCard = ({ skill, delay }: { skill: Skill; delay: number }) => (
     <div 
-      className={`portfolio-card p-6 group hover:scale-105 transition-all duration-500 ${
+      className={`portfolio-card p-6 group hover:scale-105 transition-all duration-500 cursor-pointer ${
         isVisible ? 'animate-fade-in' : 'opacity-0'
       }`}
       style={{animationDelay: `${delay}ms`}}
+      onClick={() => setSelectedSkill(skill)}
     >
       <div className="flex items-center justify-between mb-3">
         <h4 className="font-poppins font-semibold text-foreground group-hover:text-primary transition-colors">
@@ -90,8 +94,11 @@ const SkillsSection = () => {
       </div>
       
       {/* Skill Level Indicator */}
-      <div className="mt-2 text-xs text-muted-foreground">
-        {skill.level >= 90 ? 'Expert' : skill.level >= 80 ? 'Advanced' : skill.level >= 70 ? 'Intermediate' : 'Beginner'}
+      <div className="mt-2 flex items-center justify-between">
+        <span className="text-xs text-muted-foreground">
+          {skill.level >= 90 ? 'Expert' : skill.level >= 80 ? 'Advanced' : skill.level >= 70 ? 'Intermediate' : 'Beginner'}
+        </span>
+        <span className="text-xs text-primary group-hover:text-accent transition-colors">Click to learn more</span>
       </div>
     </div>
   );
@@ -192,6 +199,49 @@ const SkillsSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Skill Details Modal */}
+      <Dialog open={!!selectedSkill} onOpenChange={() => setSelectedSkill(null)}>
+        <DialogContent className="max-w-2xl portfolio-card border-border/30">
+          <DialogHeader>
+            <DialogTitle className="text-3xl font-poppins portfolio-gradient-text mb-4">
+              {selectedSkill?.name}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-6">
+            {/* Skill Level */}
+            <div className="flex items-center justify-between">
+              <span className="text-lg font-semibold text-foreground">Proficiency Level</span>
+              <div className="flex items-center gap-3">
+                <div className="w-32 bg-muted rounded-full h-3">
+                  <div 
+                    className="h-full bg-gradient-accent rounded-full transition-all duration-1000"
+                    style={{ width: `${selectedSkill?.level || 0}%` }}
+                  />
+                </div>
+                <span className="text-sm font-mono text-muted-foreground">{selectedSkill?.level}%</span>
+              </div>
+            </div>
+            
+            {/* Category Badge */}
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">Category:</span>
+              <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold capitalize">
+                {selectedSkill?.category} Skill
+              </span>
+            </div>
+            
+            {/* Description */}
+            <div>
+              <h4 className="text-lg font-semibold text-foreground mb-3">About this skill</h4>
+              <p className="text-muted-foreground leading-relaxed font-inter">
+                {selectedSkill?.description}
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

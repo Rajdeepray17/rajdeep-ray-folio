@@ -84,19 +84,19 @@ const ContactSection = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "rajdeep.ray@example.com",
-      href: "mailto:rajdeep.ray@example.com"
+      value: "rajdeepray033@gmail.com",
+      href: "mailto:rajdeepray033@gmail.com"
     },
     {
       icon: Phone,
       label: "Phone",
-      value: "+91 12345 67890",
-      href: "tel:+911234567890"
+      value: "98353 40860",
+      href: "tel:+919835340860"
     },
     {
       icon: MapPin,
       label: "Location",
-      value: "India",
+      value: "Jamshedpur, Jharkhand, India",
       href: "#"
     }
   ];
@@ -105,25 +105,25 @@ const ContactSection = () => {
     {
       icon: Github,
       label: "GitHub",
-      href: "https://github.com/rajdeepray",
+      href: "https://github.com/Rajdeepray17",
       color: "hover:text-white"
     },
     {
       icon: Linkedin,
       label: "LinkedIn", 
-      href: "https://linkedin.com/in/rajdeepray",
+      href: "https://linkedin.com/in/rajdeepray17",
       color: "hover:text-blue-400"
     },
     {
       icon: Twitter,
       label: "Twitter",
-      href: "https://twitter.com/rajdeepray",
+      href: "https://x.com/Rajdeep__ray",
       color: "hover:text-blue-400"
     },
     {
       icon: Mail,
       label: "Email",
-      href: "mailto:rajdeep.ray@example.com",
+      href: "mailto:rajdeepray033@gmail.com",
       color: "hover:text-red-400"
     }
   ];

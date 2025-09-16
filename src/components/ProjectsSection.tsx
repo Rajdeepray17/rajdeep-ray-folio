@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
@@ -19,6 +20,7 @@ interface Project {
 }
 
 const ProjectsSection = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -160,6 +162,7 @@ const ProjectsSection = () => {
 
           {/* Action Button */}
           <Button 
+            onClick={() => navigate(`/project/${project.id}`)}
             variant="ghost" 
             className="w-full justify-between group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300"
           >
